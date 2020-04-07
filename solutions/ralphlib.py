@@ -1,4 +1,5 @@
 import numpy as np
+import pandas as pd
 
 def uniform_prior(grid):
     """Compute a uniform prior over a grid of parameters.
@@ -20,3 +21,17 @@ def grid_approx(prior, likelihood, grid):
     non_normalized = prior(grid) * likelihood(grid)
     normalization_factor = np.sum(non_normalized)
     return non_normalized / normalization_factor
+
+def sample(posterior_vals: pd.Series, num: int):
+    """Sample from the posterior distribution in the given df.
+    posterior_df: df with the index being parameter values
+    posterior_col: column in the df containing posterior distribution values
+    num: number of samples to return
+    
+    returns: sample generator"""
+    return np.random.choice(
+        a=posterior_vals.index.values,
+        size=num,
+        p=posterior_vals.values
+    )
+    
