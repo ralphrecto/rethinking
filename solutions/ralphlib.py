@@ -9,7 +9,7 @@ def uniform_prior(grid):
     grid: array of params
     
     returns: prior probability over grid that is uniform"""
-    return np.repeat(len(grid) / (grid[-1] - grid[0]), len(grid))
+    return np.repeat((grid[-1] - grid[0]) / len(grid), len(grid))
 
 def grid_approx(prior, likelihood, grid):
     """Use a grid approximation to compute the posterior.
