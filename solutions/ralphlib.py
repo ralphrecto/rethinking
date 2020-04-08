@@ -35,3 +35,14 @@ def sample(posterior_vals: pd.Series, num: int):
         p=posterior_vals.values
     )
     
+def normalize(sample, domain=None):
+    sample_vals, sample_counts = np.unique(sample, return_counts=True)
+    normalized = pd.Series(
+        data=sample_counts / len(sample),
+        index=sample_vals
+    )
+    
+    if domain is not None:
+        normalized = normalized.reindex(index=domain, fill_value=0)
+        
+    return normalized
